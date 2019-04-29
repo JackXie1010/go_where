@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+</head>
+<link rel="shortcut icon" href="./favicon.ico">
+<link rel="stylesheet" href="css/element_ui.css">
+<script src="js/vue.js"></script>
+<script src="js/fly.min.js"></script>
+<script src="js/element_ui.js"></script>
+<body>
+<div id="root">
+    <el-dialog
+            title="评论"
+            :visible.sync="showAddDialog"
+            width="50%"
+    >
+        <div style="margin-left: 30px; margin-right: 30px">
+            <div v-for="(item, index) in commentData" :key="index">
+                <span style="float:left;">
+                    <div>
+                        <img :src=item.head height="32" width="32"/>
+                    </div>
+                </span>
+                <span>
+                    <div>&nbsp;&nbsp;<b>{{item.nick_name}}</b></div>
+                    <div>&nbsp;&nbsp;{{item.comment}}</div>
+                </span>
+            </div>
+            <el-input style="margin-top: 10px; width: 500px" v-model="input" placeholder="请输入评论" size="mini"></el-input>
+            <el-button size="mini" style="margin-left: 10px" @click="publish()">发表</el-button>
+        </div>
+        <div style="margin-left: 30px; margin-top: 6px">
+            <a @click="login()"><font color="blue">登陆</font></a>
+            &nbsp;或&nbsp;
+            <a @click="regist()"><font color="blue">注册</font></a>
+        </div>
+    </el-dialog>
+
+
+    <div style="margin-top:50px; margin-left:100px;" width="80%">
+        <div style="margin-top:20px;" v-for="(item, index) in tableData" :key="index">
+            <span style="float:left;">
+                <div>
+                    <img src="http://img1.qunarzz.com/sight/p0/1707/f4/f44d291b76de7b14a3.img.jpg_710x360_0df65faf.jpg" height="150" width="230">
+                </div>
+            </span>
+            <span>
+                <div><div>&nbsp;&nbsp;<font size="5">{{item.name}}</font></div><div>&nbsp;</div></div>
+                <div>&nbsp;&nbsp;<font color="red">{{item.level}}</font>&nbsp;&nbsp;&nbsp;[{{item.address}}]</div>
+                <div>&nbsp;&nbsp;￥{{item.price}}起&nbsp;&nbsp;&nbsp;<font size="2">月销量：{{item.num}}</font></div>
+                <div>&nbsp;&nbsp;{{item.introduce}}</div>
+                <div>&nbsp;&nbsp;<a @click="showDialog()"><font color="blue">查看评论</font></a></div>
+                <div>&nbsp;&nbsp;相关景点：{{item.relate}}</div>
+            </span>
+        </div>
+        <br>
+        <!--start：分页组件  <div>&nbsp;&nbsp;<el-button size="mini" @click="showAddDialog = true">查看评论</el-button></div>-->
+        <el-pagination
+                @size-change="handleSizeChange"
+                @current-change="handleCurrentChange"
+                :current-page="curr_page"
+                :page-sizes="[10, 20, 30, 50]"
+                :page-size="page_num"
+                layout="total, sizes, prev, pager, next, jumper"
+                :total="numCount">
+        </el-pagination>
+        <!--end：分页组件-->
+        <span style="position:fixed; right:10px; bottom:10px;">
+            <img v-if="btnFlag" class="go-top" src="img/top.PNG" @click="backTop">
+        </span>
+     </div>
+
+</div>
+<script src="js/index.js"></script>
+</body>
+</html>
